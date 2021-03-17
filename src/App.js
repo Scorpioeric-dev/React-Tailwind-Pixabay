@@ -1,52 +1,35 @@
-import React ,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { ImageCard } from "./components/ImageCard";
 
 function App() {
-  const [images,setImages] = useState([])
-  const [isLoading,setIsLoading] = useState(true)
-  const [term,setTerm] = useState("")
+  const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [term, setTerm] = useState("");
 
+  useEffect(() => {
+    fetch(
+      `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_KEY}&q=${term}&image_type=photo&pretty=true`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setImages(data.hits);
+        setIsLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, [term]);
 
-
-
-  
   return (
-    <div class="max-w-sm rounded overflow-hidden shadow-lg">
-      <img src="https://source.unsplash.com/random" alt="" className="w-small
-      " />
-      <div className="px-6 py-4">
-        <div className="font-bold text-black-500 text-xl mb-2">
-          Photo by John Doe
-        </div>
-        <ul>
-          <li>
-            <strong>Views: </strong>
-            5000
-          </li>
-          <li>
-            <strong>Downloads: </strong>
-            300
-          </li>
-          <li>
-            <strong>Likes: </strong>
-            300
-          </li>
-          <li>
-            <strong>comments: </strong>
-            300
-          </li>
-        </ul>
-      </div>
-      <div className="px-6 py-4">
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          #tag1
-        </span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          #tag2
-        </span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          #tag3
-        </span>
-      </div>
+    <div className="container mx-auto">
+      
+
+      {!isLoading && images.length === 0 && <h1 className="text-5xl text-center mx-auto mt-32">No Images Found</h1> }
+
+      {isLoading ? <h1 className="text-6xl text-center mx-auto mt-32">Loading...</h1> : <div className="grid grid-cols-3 gap-4">
+        {images.map(image => (
+          <ImageCard key={image.id} image={image} />
+        ))}
+      </div>}
     </div>
   );
 }
