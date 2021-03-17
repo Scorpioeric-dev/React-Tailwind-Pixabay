@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React ,{useState,useEffect} from "react";
 
 function App() {
+  const [images,setImages] = useState([])
+  const [isLoading,setIsLoading] = useState(true)
+  const [term,setTerm] = useState("")
+
+
+
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div class="max-w-sm rounded overflow-hidden shadow-lg">
+      <img src="https://source.unsplash.com/random" alt="" className="w-small
+      " />
+      <div className="px-6 py-4">
+        <div className="font-bold text-black-500 text-xl mb-2">
+          Photo by John Doe
+        </div>
+        <ul>
+          <li>
+            <strong>Views: </strong>
+            5000
+          </li>
+          <li>
+            <strong>Downloads: </strong>
+            300
+          </li>
+          <li>
+            <strong>Likes: </strong>
+            300
+          </li>
+          <li>
+            <strong>comments: </strong>
+            300
+          </li>
+        </ul>
+      </div>
+      <div className="px-6 py-4">
+        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+          #tag1
+        </span>
+        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+          #tag2
+        </span>
+        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+          #tag3
+        </span>
+      </div>
     </div>
   );
 }
